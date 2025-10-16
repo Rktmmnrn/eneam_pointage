@@ -1,0 +1,36 @@
+<odoo>
+    <template id="calendar_page" name="Calendrier Présences">
+        <t t-call="website.layout">
+            <div class="container py-4">
+                <div class="row">
+                    <!-- calendrier -->
+                    <div class="col-lg-4">
+                        <input type="date" id="calpicker" class="form-control"
+                        t-att-data-api="api_url"
+                        t-att-data-api-personnel="'http://localhost:8000/api/personnel/'"/>
+                        <button id="btn_load" class="btn btn-primary mt-2">Afficher</button>
+                    </div>
+
+                    <!-- resultat dynamique -->
+                    <div class="col-lg-8">
+                        <h3>Les personnels présents sont ici</h3>
+                        <ul id="liste_presences" class="list-group"/>
+                    </div>
+                </div>
+            </div>
+
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/eneamfront/static/src/js/calendar_widget.js"/>
+            </xpath>
+        </t>
+    </template>
+
+    <!-- Menu Website visible dans la barre de navigation -->
+    <record id="menu_calendrier" model="website.menu">
+        <field name="name">Présences</field>
+        <field name="url">/pointage/calendrier</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" eval="50"/>
+        <field name="website_id" eval="False"/>   <!-- visible sur tous les sites -->
+    </record>
+</odoo>
